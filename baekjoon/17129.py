@@ -12,6 +12,7 @@ def bfs():
         graph.append(row)
 
     queue = collections.deque([(start,1)])
+
     flag = True
     visited[0][0] = True
     foods = ['3','4','5']
@@ -30,8 +31,7 @@ def bfs():
                     print(depth)
                     queue = []
                     return
-    if flag:
-        print("NIE")
+    print("NIE")
 
 bfs()
 
