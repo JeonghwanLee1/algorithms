@@ -70,8 +70,9 @@ def solution():
     #print(routes)
     start_end = set([start,goal])
     result = result-start_end
+    answer = len(result)
 
-    for i in range(1,len(result)):
+    for i in range(len(result),0,-1):
         comb = list(combinations(result,i))
         if comb:
             #print(comb)
@@ -87,9 +88,10 @@ def solution():
                     n = elem[0]
                     m = elem[1]
                     graph[n][m] = '.'
+                    answer = i
+                continue
 
-            else:
-                print(i)
-                return i
+    print(answer)
+    return
 
 solution()

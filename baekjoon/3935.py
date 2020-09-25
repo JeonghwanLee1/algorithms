@@ -23,7 +23,7 @@ while True:
     if N == 0:
         break
 
-    town_rain = [0 for _ in range(17)]
+
     town_sun = [[] for _ in range(17)]
     for day in range(N):
         inp = input().split()
@@ -32,29 +32,29 @@ while True:
                 town_sun[i+1].append(day)
     
     #dfs
-    stack = [(5,0)]    #position,depth
+    stack = [(5,[5])]    #position,depth,path
+    print(town_sun)
+
+    routes = []
     while stack:
+        #print(stack)
         main_flag = False
-        pos,depth = stack.pop()
+        pos,path = stack.pop()
+        depth = len(path)
         if depth == N:
-            main_flag = True
+            routes.append(path)
             continue
 
-        for nei in c_graph[pos]:
+        for nei in c_graph[pos]: #연결된 구름
             flag1 = True
-            for town in c_map[nei]:
+            for town in c_map[nei]: #연결된 구름의 소속 town
                 if depth in town_sun[town]:
                     flag1 = False
                     break
+
             if flag1:
-                stack.append((nei,depth+1))
-                
-                for town in c_map[nei]:
-                    town_rain[nei] = 0
-        
+                stack.append((nei,path+[nei]))
 
-
-
-
-    #print(town_sun)
+    town_rain = [0 for _ in range(17)]
+    result_flag = True
 
