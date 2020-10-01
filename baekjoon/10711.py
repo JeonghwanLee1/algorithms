@@ -58,23 +58,35 @@ for i, j in hubos:
 answer += 1
 
 adj = [[[] for _ in range(W)] for _ in range(H)]
-
-for i in range(H):
-    for j in range(W):
-        for step in all_steps:
-            _di,_dj = step
-            _ni,_nj = i+_di,j+_dj
-            adj[i][j].append((_ni,_nj))
+#
+# for i in range(H):
+#     for j in range(W):
+#         for step in all_steps:
+#             _di,_dj = step
+#             _ni,_nj = i+_di,j+_dj
+#             adj[i][j].append((_ni,_nj))
 
 while flag:
     visited = [[False for _ in range(W)] for _ in range(H)]
     check_list = []
     for hubo in hubos:
-        for ni,nj in adj[hubo[0]][hubo[1]]:
-            if not visited[ni][nj]:
-                check_list.append((ni,nj))
-                count_graph[ni][nj]+=1
-                visited[ni][nj] = True
+        if adj[hubo[0]][hubo[1]]:
+            for ni,nj in adj[hubo[0]][hubo[1]]:
+                if not visited[ni][nj]:
+                    check_list.append((ni,nj))
+                    count_graph[ni][nj]+=1
+                    visited[ni][nj] = True
+        else:
+            for step in all_steps:
+                _di,_dj = step
+                _ni,_nj = hubo[0]+_di,hubo[1]+_dj
+                adj[hubo[0]][hubo[1]].append((_ni,_nj))
+
+            for ni,nj in adj[hubo[0]][hubo[1]]:
+                if not visited[ni][nj]:
+                    check_list.append((ni,nj))
+                    count_graph[ni][nj]+=1
+                    visited[ni][nj] = True
     hubos = []
     flag = False
     answer_flag = True
