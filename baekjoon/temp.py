@@ -1,3 +1,3 @@
-a = [5,4,3,2,1]
-a.sort()
-print(a)
+l = list(map(int,input().split()))
+l.sort()
+print(l[1])
